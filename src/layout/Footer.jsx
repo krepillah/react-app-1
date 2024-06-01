@@ -1,6 +1,6 @@
 function Footer() {
     return (
-        <footer className="page-footer indigo">
+        <footer className="page-footer black">
             <div className="container">
             <div className="row">
                 <div className="col l6 s12">
@@ -17,7 +17,7 @@ function Footer() {
                 </div>
             </div>
             </div>
-            <div className="footer-copyright indigo darken-1">
+            <div className="footer-copyright deep-orange">
             <div className="container">
             © {new Date().getFullYear()} Copyright Text
             <a className="grey-text text-lighten-4 right" href="#!">Больше о нас</a>
