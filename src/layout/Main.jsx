@@ -1,13 +1,28 @@
 import React from "react";
 import Movies from "../components/Movies"
+import Search from "../components/Search"
 
 class Main extends React.Component {
     state = {
         movies: [],
+        name: 'matrix',
+        filter: '',
     }
 
     componentDidMount() {
-        fetch('http://www.omdbapi.com/?s=sex&apikey=36391301&page=1-3')
+        fetch("http://www.omdbapi.com/?s=matrix&apikey=36391301")
+        .then(response => response.json())
+        .then(data => this.setState({movies: data.Search}))
+    }
+
+    filmSearch = (data, type = "all") => {
+        let str = ''
+        if(type === "all"){
+            str = `http://www.omdbapi.com/?s=${data}&apikey=36391301`
+        } else{
+            str = `http://www.omdbapi.com/?s=${data}&apikey=36391301&type=${type}`
+        }
+        fetch(str)
         .then(response => response.json())
         .then(data => this.setState({movies: data.Search}))
     }
@@ -16,7 +31,8 @@ class Main extends React.Component {
         const {movies} = this.state;
         return (
             <main className="container content">
-                {movies.length ? (<Movies movies={movies}/>) : (<div class="progress"><div class="indeterminate"></div>
+                <Search filmSearch={this.filmSearch}/>
+                {movies.length ? (<Movies movies={movies}/>) : (<div className="progress"><div className="indeterminate"></div>
   </div>)}
             </main>
         )
