@@ -2,41 +2,50 @@ import React from "react";
 import Movies from "../components/Movies"
 import Search from "../components/Search"
 
+const API_KEY = process.env.REACT_APP_MOVIES_API_KEY;
+
 class Main extends React.Component {
     state = {
         movies: [],
-        name: '',
-        filter: '',
+        loading: true,
     }
 
     componentDidMount() {
-        fetch("http://www.omdbapi.com/?s=matrix&apikey=36391301")
+        fetch(`https://www.omdbapi.com/?s=sex&apikey=${API_KEY}`)
         .then(response => response.json())
-        .then(data => this.setState({movies: data.Search}))
+        .then(data => this.setState({movies: data.Search, loading: false}))
+        .catch((err) => {
+            console.error(err);
+            this.setState({loading: false})
+        })
     }
 
     filmSearch = (data, type = "all") => {
+        this.setState({loading: true})
         let str = ''
         if(data ===''){
-            data = "matrix"
+            data = "sex"
         }
         if(type === "all"){
-            str = `http://www.omdbapi.com/?s=${data}&apikey=36391301`
+            str = `https://www.omdbapi.com/?s=${data}&apikey=${API_KEY}`
         } else{
-            str = `http://www.omdbapi.com/?s=${data}&apikey=36391301&type=${type}`
+            str = `https://www.omdbapi.com/?s=${data}&apikey=${API_KEY}&type=${type}`
         }
         fetch(str)
         .then(response => response.json())
-        .then(data => this.setState({movies: data.Search}))
+        .then(data => this.setState({movies: data.Search, loading: false}))
+        .catch((err) => {
+            console.error(err);
+            this.setState({loading: false})
+        })
     }
 
     render() {
-        const {movies} = this.state;
+        const {movies, loading} = this.state;
         return (
             <main className="container content">
                 <Search filmSearch={this.filmSearch}/>
-                {movies.length ? (<Movies movies={movies}/>) : (<div className="progress"><div className="indeterminate"></div>
-  </div>)}
+                {!loading ? (<Movies movies={movies}/>) : (<div className="progress"><div className="indeterminate"></div></div>)}
             </main>
         )
     }
