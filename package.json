@@ -2,7 +2,6 @@
   "name": "react-app-1",
   "version": "0.1.0",
   "private": false,
-  "homepage":"https://krepillah.github.io/react-app-1",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
