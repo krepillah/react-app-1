@@ -2,7 +2,7 @@ import React from "react";
 
 class Search extends React.Component { 
     state = {
-        name: 'matrix',
+        name: '',
         type: 'all',
     }
 
@@ -14,7 +14,10 @@ class Search extends React.Component {
     }
 
     selectType = (event) => {
-        this.setState(() => ({type: event.target.value}), () => (this.props.filmSearch(this.state.name, this.state.type)))
+        this.setState(
+            () => ({type: event.target.value}), 
+            () => (this.props.filmSearch(this.state.name, this.state.type))
+        )
         
     }
 

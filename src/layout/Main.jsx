@@ -5,7 +5,7 @@ import Search from "../components/Search"
 class Main extends React.Component {
     state = {
         movies: [],
-        name: 'matrix',
+        name: '',
         filter: '',
     }
 
@@ -17,6 +17,9 @@ class Main extends React.Component {
 
     filmSearch = (data, type = "all") => {
         let str = ''
+        if(data ===''){
+            data = "matrix"
+        }
         if(type === "all"){
             str = `http://www.omdbapi.com/?s=${data}&apikey=36391301`
         } else{
